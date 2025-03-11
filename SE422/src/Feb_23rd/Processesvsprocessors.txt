@@ -1,0 +1,45 @@
+[Andrews] Chapter 1
+
+Agenda:
+	Recap
+	Problems of processes
+	Distributed computing
+	Fix some of the problems
+
+Processes vs processors
+Processes is related to the operating system and is an abstract entity and manages tasks and sets of instructions and can schedules them.
+How processes are created:
+When we launch an app, maybe through gui, or by executing a command (cli), a process with a unique id is created. (the set of instructions is loaded into the memory and then the process with the unique id is created).
+
+Processes dont share memory space, this means if we have a process called 1, and one that has already been launched called 2, these processes will not have a shared memory space, they are 2 distinct spaces. This fact causes a lot of programming issues so you have to be careful. So for example if we have a var called x in both 1 and 2, at runtime they will have different values since their memory space is not shared.
+
+Java code:
+Public class test {
+Public static int counter;
+	public static void main(string… args){
+		syso(counter)
+		for(int i = 0; i<1000000; i++){
+syso(counter);
+Counter++;
+thread.sleep(1000);
+//tells the operating system “i dont need the cpu for 1 second”
+}
+}
+}
+For now we have 1 process because we have only launched the jvm once, the for loop doesnt mean that we have many processes
+
+Then if we launch the same code again (making it another process), even though it is static and it should have the same value, it doesnt because they are two independent different processes and they have different memory spaces, if they had the same memory then they would increase in sync and even if we relaunch one it should be in the same place. If we relaunch the application and launch a few iterations, we will have parallelism and concurrency at the cost of not having the same shared memory space.
+
+What should we do so that the processes see each other?
+There are multiple ways to share data:
+We can ise the storage area, one can write and the other can read (creating a file and writing to it and then reading from it), the issue is we are invoking the storage layer and it is way too slow. And one needs to finish writing so the other one can read.
+
+Another way is to have a shared memory region, where if 1 has a memory space and 2 has another space, we need to have another shared space where 1 and 2 can send their things and write and read on it, this is much better than storage and it is a pure memory transaction between one process and another. This situation is called SHM device (the shared memory region). The problem might be that the os gives you that space and there is no limitation or management from the os side.
+Libraries can utilize SHM devices on their own.
+
+Lets say we have p1 and p2 and know exactly where the memory address of p2 is, lets say 0x48, we can tell p1 to reference the memory space of a particular variable from another process, this will not work, and the moment we try to access a memory region from one process to another process, an error will occur, this is a security matter and each memory region is a private area for its own specific process, the error is called segmentation fault. 
+
+Another way is something we have studied, if we have p1 and p2, we can use the network stack between them, sockets from distributed computing basically. The key drawback is speed compared to SHM devices. The complexity will be less if you are on one machine, since we wont need tcp and will use udp, and for the ip aspect, if its one machine we will also be able to use the unix socket, which is far less complex compared to ip. As long as its in one host machine then no problem. For example, the browser you use that has audio sends it through the unix socket to the sound system. We can call this a distributed system, since while it is not actually distributed, everything related to distributed systems applies here, including causality.
+A lot of devices do this even though shm devices are the fastest, this is because shm devices need you to do everything by yourself.
+
+The most elegant solution is via the idea of threads, because instead of having two processes, we will have one process and will tell the os to divide this one process.

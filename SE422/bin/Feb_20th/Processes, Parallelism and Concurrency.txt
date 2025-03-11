@@ -1,0 +1,26 @@
+Processes, Parallelism and Concurrency
+reference: [Abraham] Chapter 3 and Section 5.1
+
+Agenda:
+    Recap of last lecture
+    Processes
+    Process scheduling
+    parallel computing
+    concurrent computing
+
+Recap:
+- Modern CPUs are complex
+- They have multiple cores, and can run multiple tasks at the same time
+
+if we have 2 tasks, and a cpu that can run both tasks, the catch is how things fit together:
+if we have a cpu that has 3 cores, and the main memory, if we compile both tasks and everything is translated to machine instructions, the question is how the cores and the main memeory will fit into the hardware layer, the tasks are in the software layer and the cores and main memory are in the hardware layer, if we even simplify it and only have task 1, how will things work:
+    we cant give all the instructions to a core (caches in the cores), since they wont fit, so we will load them somewhere to the main memory , we put them there, and the computation is still not performed yet, so we will have a fetching and executing thing, where one instruction goes to a core, is executed, and the output is given back to the main memory, this happens instruction after instruction. the going back to the main memory is good since if we switch cores and need the previous output for another instructtion, its still available.
+
+    we will now do 2 tasks, which are compiled, meaning they are a set of machine instructions ready to work
+    we still have the main memory and the 3 cores, we will load both tasks to the main memory, which has different regions. one way to do it is to use core 1 for all the instructions on both tasks, so we do it sequencially, which is not really smart since we know the cpu can do 3 tasks at the same time.
+    we will now assign the tasks to their different memory regions, and then assign each different memory region to a different core, this means that the memory region for task one will be executed by core 1 and the memory region of task 2 by core 2, this makes things more efficient.
+
+    Memory region: this was an informal way of reffering to it, it is actually a process, which is a set of instruction or data loaded into the memory region. so when we say we have 2 processes, we mean we have 2 different sets of instructions that are loaded into the main memory. so the moment we load a set of instructions into the main memory we call it a process. a processor(a core) processes processes.
+    not every set of instruction and data are process, since it may not be in main memory.
+
+    lets say we have an infinite loop as a code, to use it it is converted to byte code, the jvm uses it then, jvm itself is a process in the perspective of the operating system, so until before the jvm, the processor doesnt do anything, when we invoke the jvm, which will load the jvm itself into main memory, and once it loads there, it becomes a process, and then a core fetches the instructions one by one from the main memory, and eventually it will start to load the byte code into its main memory region, then the jvm will go through the byte code and translate it to machine code on the fly. doubt

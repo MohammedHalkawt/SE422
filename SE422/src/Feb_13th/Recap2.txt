@@ -1,0 +1,17 @@
+A while(true) which has only a print statement is an infinite loop
+
+Break in a loop breaks that iteration of the loop and continues with the method, so a while that has a print and at the end a break will act as the print itself since the break only allows one iteration.
+
+An Object: the CPU has no idea what the object is, neither what a class is, the same way they dont know what a for loop is and so on. An object is an entity you create and once it reaches the JVM it will be converted to memory allocation. So an object is just a memory space.
+
+Minimum requirement to create an object: new Student();, but we can’t insert data to that memory location, so we need a pointer, which only holds one value which is the first memory address of the chunk of memory space we created (the object).
+
+Since String is a class, we say it is also a pointer, in java, if the first letter is capital then its a class, and classes use pointers. And also if we count the variables, we also need to count the method ones in the argument, also the main one (String…args).
+
+
+Passing by reference and passing by value, for reference its referring to a memory space, and passing by value means that if we change something of some variable in a method it doesnt change in the main. But if we pass a pointer to object student with id one to a method, and in teh method we change the id to 2, then print in main, then it will be 2 since we passed by reference.
+
+H.W: methods in classes without the static keyword, static variables in a class.
+
+
+

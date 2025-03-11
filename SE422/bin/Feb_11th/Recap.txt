@@ -1,0 +1,24 @@
+We create software models by using languages like java so they can be computed, the software model is in the abstract world, while when computing with the hardware it is instructions.
+
+To run java code form the terminal write java (location of the file) then enter
+
+The java instructions are not the machine instructions right away, we need something to translate. Thats why we call java a high level programing language, since the cpu doesnt understand right away. And we dont write with machine instructions right away is because it is really difficult to express complex things with it.
+
+This translation is done by either of these two: interpreter, compiler
+Interpreter goes through each line and makes the translation on the fly. The compiler makes a final output unlike the interpreter which makes it line by line.
+
+Compiler sees the java instructions as input and the machine instructions as output.
+
+In java it compiles once and produces a byte code, and then the JVM can run it anywhere as long as the JVM can run on that specific CPU (mac or windows no problem anymore)
+
+The .class files are the byte code.
+
+Now when we run it in the terminal it says 500ms, and to make it faster we say javac and the location of the file, this creates the byte code, which is the filename.class. So this tool about 500ms and created the byte code for us, and now when we run the .class, we say java and the name of the file so ( java Test) if the file was test.class. Now its about 70ms which is much faster. If we say java test but test doesnt have a main method, it wouldnt run, so classes that have a main method act like an entry point.
+
+Int is a variable data type and accepts natural numbers, int takes 4 bytes and long takes 8. Long also accepts natural numbers.
+But JVM ultimately decides, for example for certain scenarios int takes 8 bytes to run faster.
+
+If we want to change the default datatype to long, we tell it to not treat the number as an integer by writing a (l) at the end of the number long y = 10000l;
+Float accepts fractions, and double as well, the default datatype is double for fractions and float takes less bytes compared to double. We can add an f to ignore the default datatype, or force cast the number to float by saying float a = (float) 1.2;
+We need to say float c = (float)a * 1.2; for it to work, since 1.2 is double by default.
+if(true) says it is always true and will always run

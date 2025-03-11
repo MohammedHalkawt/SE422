@@ -1,0 +1,54 @@
+Insights coming from the hardware layer:
+CPUs (Central Processing Unit)
+reference: wikipedia for computer architecture: 
+https://en.wikipedia.org/wiki/Computer_architecture
+
+Agenda:
+    Computer architecture
+    CPUs and CPU architecture
+    AMD 9950 zen 5 (consumer grade in the market thats why we chose it)
+    intel lunar lake (both are modern CPUs)
+
+CPU and Memory will talk to each other in order to process things
+Memory: we need somewhere to store data and instructions so they can be processed by the cpu.
+
+the change in CPU will be reflected in advancements in coding and APIs, so knowing CPUs is important.
+
+modern CPUs have a number of chips inside of them, some chips are redundant and some have specialized things to do.
+the big chip is the IO-die
+the small chips are the CCD (complex compute die)
+
+IO-Die:
+memory controllers: this part is responsible for talking to the memory, and the physical busses are connected to the memory and the memory controller communicates with it.
+General input/output/ usb stack: here we see that usb is part of the io die and part of the cpu, so when you input a cpu in comes here eventually/
+infinity fabric: this is responsible for the communication between the complex dies, so it is the interface to talk to the CCDs, thats even why it is above in the pic, so it is closer to the CCDs.
+PCIE: the interface where the peripheral devices can connect to the CPU, so instructions coming from and to the peripheral devices go though the PCIE, so storage things like NVME and GPUs they talk to the CPU through the PCIE.
+GPU: many consumer grade cpus have a gpu called an igpu, its part of the io-die and colours and videos and things, those are what the gpu here is responsible for.
+npu: new in consumer grade cpus, responsible for AI and things, laptops comming with copilot have this NPU in them, its the (neural processing unit), it will be useful in the future for AI and APIs.
+
+the computation is in the CCDs:
+L3 cache layer: its an internal memory, its the L3 cache layer here. instead of going to memory everytime by talking to the memory controller and other things, the cache caches it in case we need it again, it takes a lot of space in the CCDs.
+the physical cores: each block is a core, so in the image for zen 5 it has 8 cores. we will talk about cores later.
+the infinity fabric on the CCDs: its the other end of the infinity fabric and takes care of communication with the IO-dies.
+
+Cores in the CCD:
+FPU (floating point unit): this performs the arithmatics, the floating point is basically numbers with fraction.
+Integer Core: performs the remaining parts of communication, this is named integer since its numbers without fraction.
+L2 cache layer: much smaller and only sharable by one core, while the L3 cache layer in teh CCD is for anyone inside the individual CCD die, this l2 is much faster than l3 cache, but the downside is that it is not sharable with the other cores, while in L3 one can read and one can write from the L3. so in modern cpus a lot of caching exists, some are really fast but not sharable, some are fast compared to memory and still sharable between the cores, keep in mind that in L3 it is sharable only between the cores in a single CCD, if you want to go to the other CCD it needs to go though the memory controllers.
+
+if we have a cpu that has 8 cores in one ccd, and it has only one ccd, then the cpu is capable of performing 8 tasks at any given time. if it has another ccd and each one have 8 cores, then it can perform 16 tasks at the same time.
+
+Lunar Lake: the main memory and the cpu are closer, which makes it much faster, but the downside is that if you want to change the main memory, you have to change the cpu as well. by memory we mean the ones that store instructions and some data.
+
+main takeaways: 
+    1- CPUS are changing and complex
+    2- CPUs have multiple cores, which can perform multiple tasks in parallel
+    3- we have various caching layers, data can hit this caching layer constantly, while we dont have complete control over them, we can sometimes see the consequences, we will see them later in this course.
+
+
+Note: L1 is the smallest cache layer, so its the fastest.
+
+Video for reference if needed:
+https://www.youtube.com/watch?v=bPLKa4crk8A
+excercise:
+    if we have an int that we declare in main, it will be stored in L1, if we put it as part of the class, like outside the main, it will be stored in the main memory and not in L1 anymore. if we have an array[1000] inside main, it will be in L2 since it wont fit in L1.

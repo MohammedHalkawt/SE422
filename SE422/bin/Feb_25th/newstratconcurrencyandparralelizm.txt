@@ -1,0 +1,28 @@
+Tim chp1
+
+Agenda:
+Recap
+new strat for concurrency and parallelism
+java demo
+key differences
+
+(introduction for multi-thread programming)
+
+we talked about multi process programming, but one of the drawbacks was that the memory was not shared, so if we wanted to use it we would have to figure out a way to share the data between the processes.
+
+to achive concurrency and parallelism we can use multi-thread programming instead of multi-process programming, both are ways used to achieve parallel and concurrent computation, they look similar but each has its own advantages and disadvantages.
+in certain areas we want to use one over the other.
+if we are talking about concurrency and parallelism of one application, and we want to use the cpu for a set of processes, use multi-thread, if we have multiple applications that have multiple processes, the only viable option is multi-process programming.
+since we will be increasing the complexity of the entire setup if we will be using multi-thread for multiple applications.
+
+a thread is an execution path.
+
+previously we created jvm and when we launched it it was a process, and in jvm it was one thread which had main(). so the way we have launched applications has been like one process that has one thread inside of it.
+now we will be doing one process that has more than one thread that is running simoultainiously. we do this because threads are understandable by the os, and the os can go and take each thread independently on different cores at the same time. so each thread goes to a core, and if we have 3 threads and 2 cores, then we will have concurrency and one will be removed after some time so that the other one can be worked on.
+and if we have one process with multiple threads, their memory region is shared between them.
+
+in multi-process the individual threads in the individual processes have isolated memory spaces and cannot communicate with eachother, thats not the case in multi-thread programming since their memory region is shared between them.
+
+threads belong to both the jvm and the os and both work together to use them. so we can say that when the process is in the os the jvm asks it to create a thread for that process, and if we want another thread the jvm asks it from the java side to create another thread. so we have os-threads and java-threads, so in the os java cannot create threads by itself and needs to talk to the os to make them, but we can say that between the java and os side, its one to one, so one java thread is used to create one os thread.
+for today the mapping is one to one between the java and os side for threads, but later we will see that that is not really the case.
+

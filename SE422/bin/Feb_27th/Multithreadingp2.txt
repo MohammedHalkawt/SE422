@@ -1,0 +1,13 @@
+references from previous lecture
+mostly practical
+we will discover other ways to create threads
+
+Agenda:
+recap multithreading (creating a thread class)
+interface runnable (part of java api)
+how to use the runnable interface to create threads
+lambda operations
+anonymous class threads
+    
+    all of them are coding and practical
+

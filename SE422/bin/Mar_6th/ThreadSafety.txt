@@ -1,0 +1,6 @@
+Agenda:
+Threads and the join() methods
+Java code example
+Data race
+Thread safety
+Intrinsic locks

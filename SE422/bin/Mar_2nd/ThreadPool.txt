@@ -1,0 +1,17 @@
+Agenda
+Overhead context switching
+Solution: ThreadPool
+
+Context Switching:
+lets say we have a core that has 2 threads, we know that one of these 2 threads will eventually execute. lets say its thread 1, context switching switches from thread 1 to thread 2, who has been waiting. so context switching is unloading one thread from a core and bringing another thread in. by unloading we mean it takes everything related to the thread from the core, takes a snapshot of it and puts it in the main memory so it can later be used.
+
+context switching is not free of charge and requires time, so its not instant. mostly the hardware layer cannot help here, and mostly its in the software layer, but some specific CPUs have hardware specs that help with multithreading.
+
+if we have 5 threads and 4 cores, we need context switching to achieve concurrency. and if we have 100 of threads and we have 5 cores, the implication is now the schedule needs to work harder to make things more fair, and that means we have more context switching, which means it takes longer to unload and load stuff, so the more threads we launch beyond the capabilities of the hardware the worse it is for context switching.
+
+we want to make sure at any given time no matter how many tasks we have, it should not exeed n threads, for our current code we cant since the classes we have can just call new Thread()
+
+one solution is to use the factory design pattern, for example there we would have a getInstance method that has if conditions such as saying if it has been more than 5 threads then dont create more.
+In java we have a built-in solution which is called ThreadPool.
+
+Now we will write code

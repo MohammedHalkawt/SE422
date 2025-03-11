@@ -1,0 +1,7 @@
+Reference: Java How to Program Chapter 9
+
+Agenda:
+How we can transfer data from one threat to another
+    how to do it with static variables
+    how to do it with non-static variables
+    whether its passed by value or pass by reference and what are the implications
