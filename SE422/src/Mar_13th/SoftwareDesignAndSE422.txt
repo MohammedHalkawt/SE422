@@ -1,0 +1,15 @@
+Software Design and SE422
+
+Java App Requirements:
+1- A student has an ID and a GPA
+2- A data structure is required to hold a set of students
+3- Make a student thread safe as well as make requirement 2(the data structure) thread safe
+
+from the 3 requirements, 1 and 2 are functional, since the system is going to maintain the data structure and the student IDs and GPAs, but requirement 3 is non-functional and will not show up most of times because its a technical requirement, a system analyst is not supposed to specifically tell you that they want their data structure to be thread safe, especially if they are not from a technical background, they only expect performance from that aspect, you need to translate it to technical terms yourself.
+
+the ID needs to be int and the GPA needs to be float, and we need only one id and one gpa per each student.
+
+
+
+last 5 minutes of the class after the code:
+in threadpool, if we have a few classes that want to create their own threadpools, we need to administer it since they shouldnt exceed the limit. we shouldnt put it in one of the classes and expect the other classes to get their threads from it, since it creates a very strong dependency. the solution is to create a class that follows factory design pattern, and has getinstance which is going to give you an executor, so all the classes get their threads from it, and the classes between themselves are still loosely coupled, which is great for us.
