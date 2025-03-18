@@ -1,0 +1,7 @@
+constructor and methods in reentrant locks
+
+we have 2 constructors, the default one and the boolean one, which provides fairness.
+by fairness we mean this:
+    lets say we have a lock thats obtained by t0 and the other threads are waiting for, so t1 and t2 and so on are waiting to be given the lock. lets say the threads appeared in this order: t1 - t2 - t3 and so on until t5, so the last one who asked for the lock is t5.
+    now if t0 releases the lock, there are a few strategies for who takes the lock, one says the newest thread that asked for the lock should get it (t5 in our case), another strategy we say the oldest one gets it (t1), another one is whichever one is the better and the fastest, they will take it. using the default constructor means the last strategy is used as a policy, which means that sometimes a thread is not given the lock because it is not as fast as the others in taking the lock (also the taking is random as well so the chance of a thread not being given the lock even after waiting the most is possible). this policy is problamatic and is called the lock starvation, which is when a thread is not given the lock after a few times even after waiting for some time, and this causes bugs and failures.
+    the preferred policy is this: the oldest thread that is requiring the lock, should get the lock, basically first in first out (FIFO). so using the boolean constructor is better
