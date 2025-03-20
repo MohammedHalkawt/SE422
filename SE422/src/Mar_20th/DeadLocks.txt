@@ -1,0 +1,6 @@
+[Tim] Chapter 11
+
+Agenda:
+Java demo to show what a deadlock is
+Formally define what are deadlocks
+How to avoid them
