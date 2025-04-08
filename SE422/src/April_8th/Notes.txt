@@ -1,0 +1,4 @@
+Threads need to communicate and wait for eachother in order to function
+Example:
+lets say we have 2 threads, one needs to calculate the average of an array, the other needs to print the result. there needs to be some sort of communication for these two threads to work, since both rely on eachother. One way to coordinate between threads was to use the join methods, where one thread does it job and finishes, then the other one starts, it puts the thread in a waiting state until another thread has done its job, then it can proceed.
+we have three methods for waiting that are better since it doesnt stop the whole thread but stops at some part of it, explained in code
