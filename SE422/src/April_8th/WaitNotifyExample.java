@@ -30,7 +30,7 @@ class SharedResource{
         available = true;
         notify();//2 this means notify anyone whi is waiting in sleeping mode and wake them up, so if we never reach notify its called thread starvation. after calling notify the other thread is woken up again it will aquire the lock again and resume from the wait line.
         try{
-            wait();
+            this.wait();
         }catch(InterruptedException e){
             Thread.currentThread().interrupt();
         }//3 we can add the wait here as well which will wait for another thread to wake it up
@@ -39,7 +39,7 @@ class SharedResource{
 
     public synchronized void consume(){
         try{
-            wait();
+            this.wait();
         }catch(InterruptedException e){
             Thread.currentThread().interrupt();
         }        //1 we will add the wait method that exists as part of the object class, it needs a try and catch. the wait method releases the lock and makes the thread go into sleeping mode, until another thread calls the notify method, which will wake this one up again, but until then the lock is released from here.
