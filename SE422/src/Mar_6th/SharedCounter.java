@@ -19,7 +19,7 @@ public class SharedCounter {
         //System.out.println("Inc end");
     //}
 
-    public void increment(){//6.1 this is more optimized and makes it so that we lock only the incrementation of the variable and not the whole method, we have more flexibility with the intrinsic lock in java with objects, instead of the this we can also use other things like system.in if we need them, so its okay if its not related to the object we are working on at all. both this and the previous one we did are thread safe
+    public void increment(){//6.1 this is more optimized and makes it so that we lock only the incrementation of the variable and not the whole method, we have more flexibility with the intrinsic lock in java with objects, instead of this we can also use other things like system.in if we need them, so its okay if its not related to the object we are working on at all. both this and the previous one we did are thread safe
         System.out.println("Inc start");
         synchronized(this){
             count++;
@@ -42,7 +42,7 @@ if both write x then its still thread safe, since no one is reading then values 
 if t1 writes and t2 reads its safe, since if t1 executed then it gets the old value and then t2 reads that new one..
 
 if t1 works on x and t2 works on y, then its safe
-emmutable objects are thread safe... such as strings, we dont need locks fro them
+emmutable objects are thread safe... such as strings, we dont need locks for them
 
 HW: Java Object Monitor
 

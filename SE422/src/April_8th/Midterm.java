@@ -3,7 +3,7 @@ package April_8th;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class main {
+public class Midterm {
     public static void main(String[] args) {
 
         int cores = Runtime.getRuntime().availableProcessors();

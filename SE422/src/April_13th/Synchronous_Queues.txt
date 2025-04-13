@@ -1,0 +1,20 @@
+Agenda:
+    Recap the idea of having synchronizers in multi-thread programming
+    Introduce synchronous queues
+    properties of this new tool
+    Java code
+
+Last lecture we talked about synchronizers in multi-thread programming:
+    Although when we have multiple threads we can achieve parallelism and concurrency, we sometimes want a sequencial workflow of the threads, wanting one part of a thread to be guaranteed to run before another thread and so on.
+    The speed of threads cannot be controlled by nature, we cannot control how fast or slow a thread can go without adding some complexity and logic, by using synchronizers, which implements sequencial guarantees.
+
+Synchronous Queue:
+    <E>: this is called a genetic, which allows you to create a class that can handle multiple data types. The E is a placeholder for the datatype, so if we use string, then instead of E we have use String. 
+
+    This type of queue has the size of zero, meaning the Backlog of the queue is zero, which implies that this data structure cannot hold any element.
+    Its useful because we can use it as a synchronizer instead of a data structure.
+    If we call the isEmpty() it will always return true, and for asking for size it will always give 0, contains() always false, clear() does nothing, these mean that this is a data structure that should not be used as a data structure.
+
+    BlockingQueue: it has the ability to put a thread into sleeping mode that is interacting with the data structre under certain conditions, blockingqueue itself is an interface that is implemented by the synchronousQueue.
+
+    Code..
