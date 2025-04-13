@@ -18,3 +18,18 @@ Synchronous Queue:
     BlockingQueue: it has the ability to put a thread into sleeping mode that is interacting with the data structre under certain conditions, blockingqueue itself is an interface that is implemented by the synchronousQueue.
 
     Code..
+
+
+
+Extra from my lecture: (Kevin)
+
+Recap: We don't control the speed of threads. If we talk about how fast or slow it runs, it depends on two factors. First one, the complexity of the computation it performs. Second factor depends on the environment. If the core is hot for example, it will be slower. It is very hard to predict the runtime of a thread. From one execution to another, it will change.
+
+This is why you need a synchronizer. It's putting the block of code under synchronization. This provides an elegant situation to predict what kind of operation can occur. More clearly, you are defining how causality will form at run-time. Regardless of what the environment will do, you are creating a checkpoint. 
+
+We are doing synchroniousqueue today. The best way to introduce this is by looking at the java class that implements or provides it.
+
+Inside any documentation when you see the letter e, imagine its the datatype holder. In the case of the same example (he wrote for your class too), its a string.
+queue 2 - Holds students <student>. If you try to add a student to a queue, it will work. Because, you've told the dataholder you need students.
+
+Synchroniousqueue gets interesting where it can also be used subclasses if your polymorphism is good.
