@@ -33,3 +33,9 @@ Inside any documentation when you see the letter e, imagine its the datatype hol
 queue 2 - Holds students <student>. If you try to add a student to a queue, it will work. Because, you've told the dataholder you need students.
 
 Synchroniousqueue gets interesting where it can also be used subclasses if your polymorphism is good.
+
+
+The size of any synchronious queue always equals to 0. This tells you that this data structure cannot hold any elements. (This is what makes it unique). Array can at least hold one element. Here, you declare it and it cannot hold any element. It is always empty, yet we define it as a useful data structure. peek() is always null. size() is always zero. contains() will always return false. isEmpty() will always be true.
+Second property is that if you have a queue, and you call the take method. From one thread and put methods from another thread. (q.put()) and (q.take()). q.put will go into sleep mode when it calls put, until somebody else is waiting on the other by calling take. If you have a thread that is take, and there is no put. Then it will go to sleep too.
+
+
