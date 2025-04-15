@@ -46,3 +46,22 @@ ExecutorService executor =
                             TimeUnit.SECONDS,
                             new SynchronousQueue<Runnable>(10)
                             ) this is the same as cachedThreadPool which is a ready method
+
+
+
+
+ExecutorService:
+Started at 9:26.
+You are a submitter and the task submitters itself is a thread. When you are submitting a task, that task is being added to the task queue. Anything in task queue are runnable objects.
+When one of these threads become free in the thread pool, it will pull the oldest runnable object from task queue. It will execute by calling the run method. When you call submit/execute, you add tasks to the test queue and once the pool is free, it will pull that task from the queue and execute the run method on it.
+
+The problem with a fixed threadpool, the main problemm is that its fixed. So, if its full, it will remain full. In certain cases, this can cause a problem. How? If a thread is free, a task will be pulled from the queue and it will be given to the pool. The condition is that it MUST be free. That's where it can cause a problem. Thread busyness can be a problem in some casse.
+
+A thread must be free means that when it is not busy and doing tasks on the pc. A thread is busy when it performs any runnable object. Maybe manually or with thread synchronizers. It has nothing to do with the cpu. Its about if you're going to have a thread runnable.
+
+The only case a thread is free is when it has executed that run method and it has reached an end such as void run().
+
+
+
+Based on certain conditions, we'll add threads or we wont. these custom thread pools are really good when we have synchronizors, deadlocks, etc..
+
