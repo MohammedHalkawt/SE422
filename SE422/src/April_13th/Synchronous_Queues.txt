@@ -18,3 +18,24 @@ Synchronous Queue:
     BlockingQueue: it has the ability to put a thread into sleeping mode that is interacting with the data structre under certain conditions, blockingqueue itself is an interface that is implemented by the synchronousQueue.
 
     Code..
+
+
+
+Extra from my lecture: (Kevin)
+
+Recap: We don't control the speed of threads. If we talk about how fast or slow it runs, it depends on two factors. First one, the complexity of the computation it performs. Second factor depends on the environment. If the core is hot for example, it will be slower. It is very hard to predict the runtime of a thread. From one execution to another, it will change.
+
+This is why you need a synchronizer. It's putting the block of code under synchronization. This provides an elegant situation to predict what kind of operation can occur. More clearly, you are defining how causality will form at run-time. Regardless of what the environment will do, you are creating a checkpoint. 
+
+We are doing synchroniousqueue today. The best way to introduce this is by looking at the java class that implements or provides it.
+
+Inside any documentation when you see the letter e, imagine its the datatype holder. In the case of the same example (he wrote for your class too), its a string.
+queue 2 - Holds students <student>. If you try to add a student to a queue, it will work. Because, you've told the dataholder you need students.
+
+Synchroniousqueue gets interesting where it can also be used subclasses if your polymorphism is good.
+
+
+The size of any synchronious queue always equals to 0. This tells you that this data structure cannot hold any elements. (This is what makes it unique). Array can at least hold one element. Here, you declare it and it cannot hold any element. It is always empty, yet we define it as a useful data structure. peek() is always null. size() is always zero. contains() will always return false. isEmpty() will always be true.
+Second property is that if you have a queue, and you call the take method. From one thread and put methods from another thread. (q.put()) and (q.take()). q.put will go into sleep mode when it calls put, until somebody else is waiting on the other by calling take. If you have a thread that is take, and there is no put. Then it will go to sleep too.
+
+
