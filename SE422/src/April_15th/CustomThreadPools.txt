@@ -1,0 +1,48 @@
+tim Chp 8
+
+Couldnt take notes until: 8:37...
+
+The linked list is never going to get full, and even if we have 4 threads from the threadPool, it will never become more than 4, since the linked list doesnt get full, we can add a limit for the linked list?
+
+We use a linkedBlockingQueue because if our queue holds 6 tasks for example, and we have set 6 as the limit for its capacity, the linkedblockingqueue will put the application that has called the executorService to sleep so it doesnt push it over the limit, and then it will increase the thread from 4 to 5 until it reaches 10
+
+since our logic is that it starts form 4 threads and it expands to 10, if its not limited then it doesnt allow for expansion, a new thread will be added to the threadpool only if the queue becomes full
+
+ExecutorService executor = 
+    new ThreadPoolExecutor (4,// the number of core threads
+                            10,// max number of threads in the threadPool
+                            60L,
+                            TimeUnit.SECONDS,
+                            new LinkedBlockingQueue<Runnable>(10)
+                            
+                            )
+
+look in to the max_value one too
+ExecutorService executor = 
+    new ThreadPoolExecutor (0,// the number of core threads
+                            Integer.MAX_VALUE,// max number of threads in the threadPool
+                            60L,//timeout window between things?
+                            TimeUnit.SECONDS,//still related to timeout i think
+                            new LinkedBlockingQueue<Runnable>(10)
+                            
+                            )
+
+we will now use a sunchronousQueue instead of a linkedBlockingQueue
+ExecutorService executor = 
+    new ThreadPoolExecutor (0,// the number of core threads
+                            5,// max number of threads in the threadPool
+                            60L,
+                            TimeUnit.SECONDS,
+                            new SynchronousQueue<Runnable>()//the size is zero always, so adding one task will always need a new thread, which means if we reach the limit which is 5 threads in the pool, then we want more, our application will be put to sleep
+
+                            if we have very small computations, then using the SynchronousQueue and the Integer.MAX_VALUE will be good since instead of manually making the threads, they will be automatically created and can also be used again later.
+                            
+                            )
+
+ExecutorService executor = 
+    new ThreadPoolExecutor (0,
+                            Integer.MAX_VALUE,
+                            60L,
+                            TimeUnit.SECONDS,
+                            new SynchronousQueue<Runnable>(10)
+                            ) this is the same as cachedThreadPool which is a ready method
