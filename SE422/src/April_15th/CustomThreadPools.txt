@@ -65,3 +65,17 @@ The only case a thread is free is when it has executed that run method and it ha
 
 Based on certain conditions, we'll add threads or we wont. these custom thread pools are really good when we have synchronizors, deadlocks, etc..
 
+
+
+ExecutorService executor = Executors.newFixedThreadPool(4);
+ExecutorService executor =
+new ThreadPoolExecutor(0
+                        Integer, MAX_VALUE,
+                        60L,
+                        TimeUnit.SECONDS,
+                        new SynchronousQueue<Runnable>()
+                        );
+
+This threadpool cannot be affected by time synchronizors because if you have a couple of threads busy with sleeping, it wouldnt matter as you'll create another thread because of the synchroniousqueue and max value.
+You'll use this when you have a lot of jobs that are small. Even if you have sleep statements.
+
