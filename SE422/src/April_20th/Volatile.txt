@@ -1,0 +1,12 @@
+Agenda:
+
+    java project demo on how to use volatile
+    properties
+    disadvantages/issues with volatile
+    volatile vs locks
+    java demo
+
+Theory is important here.
+we will start with a small demo on how to use volatile
+
+
