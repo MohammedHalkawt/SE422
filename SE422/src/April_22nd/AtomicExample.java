@@ -50,3 +50,52 @@ public class AtomicExample {
     // return next;  
     // }
 }
+
+
+
+Extra stuff:
+
+
+ public class AtomcicExample{
+    public static void main(String...args) {
+        AtomicINteger count = new AtomicInteger(0);
+
+        for(int i=0; i < 1000; i++) {
+            new Thread()) -> {
+                count.incrementAndGet();
+                )).start();
+            }
+            try {Thread.sleep(2000); } catch
+                (INterruptedException e) {}
+            System.out.println("Final count:" + count.get());
+
+
+
+
+            public final int incrementAndGet() {
+            int prev, next;
+            do {
+                prev = get(); // read current value
+                next = prev + 2; // compute new value
+            } while (!ompareAndSet( prev, next)); // retry until successful
+
+            return next;
+
+
+
+            count.decAndGet(); so if you add one and subtract one, its atomic.
+
+                
+                if(count.get() ==0)
+                count.set(1) is this atomic?
+
+
+
+
+
+
+
+
+
+
+    
