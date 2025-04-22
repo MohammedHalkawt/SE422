@@ -1,0 +1,36 @@
+Atomic Data types
+
+Agenda:
+    Atomic operation in computer science
+    How is it useful in multi-thread programming
+    Atomic classes in java
+    Atomic integer
+    Limitations
+
+Atomic operations: (a transaction is an atomic operation in databases) which either executes fully or doesnt, there is no partial failure.
+
+for example:
+int x;
+    x = 5;
+this is atomic since it either puts the data in x or doesnt, there is no partial failure.
+
+int x;
+    x = 5;
+    syso(x)
+    still atomic since we read the x only
+
+volatile int x;
+    x = 5;
+    syso(x)
+    still atomic since we only change the visibility of x and nothing else
+
+int x;
+    x = 5;
+    syso(x)
+    x++;
+    this is not atomic since we have to change the value later after writing and reading it for the first time
+
+if we use atomic data types then when we x++;, they will still be atomic and will stay thread safe (so x++ is not thread safe without an atomic data type)
+
+there are a lot but the common ones are the atomic integer, long, and boolean, but we will use the integer one more since there is counting and incrementing in real life scenarios
+
