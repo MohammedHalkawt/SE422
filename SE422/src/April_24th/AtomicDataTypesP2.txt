@@ -1,0 +1,36 @@
+Agenda
+    Recap atomic classes
+    Atomic long
+    Performance
+    Algorithms and smart design to improve the performance of atomic classes (biggest takeaway)
+
+Atomic: you have a software entity thats prebuilt and it gives you certain operations that are thread safe, so instead of doing them by ourselves, the operations are done by the hardware separatley
+x++ has 3 operations: get x, +1, set x, which means that a thread can come in between and corrupt the data, and making it volatile doesnt make it thread safe since it only changes visibility. atomic solves this by using the CAS operation in the hardware layer (Compare and Exchange / Compare and Swap), this command not only exchanges the data, it also has an if condition that checks whether the value you have sent matches the expected one. by using the CAS, we can make certain operations lock-free and also thread safe, like the incrementAndGet().
+
+we will make an add method which adds 5
+int num = 5;
+
+we have 2 ways to do it, the one above is slower because we have a loop, the one bellow is faster, also the first one is bad since we cannot do this: add(-15) since its the loop iterations, but it will work for the second method
+
+public final int add(int num){
+    for(int i = 0; i<num; i++){// we use a loop to add it 5 times
+        incrementAndGet();
+    }
+}
+
+
+public final int add(int num) {
+    int prev, next;
+    do {
+        prev = get();  
+        next = prev + num;  //we add the number here
+    } while (!ompareAndSet( prev, next));  
+
+    return next;
+}
+
+
+
+Lets say we have an atomic Long with the value of 10 (l = 10), we call add and add 5 to it, its 15 now, then we add 20, its now 40, is this acceptable (not 15+20)? (this happens with atomic long and wont happen in atomic int). this is normal since there is likely another thread in the middle that has added to it without us being aware, so if CAS, which is an if condition, fails, then it will refetch and it is likely that the value might change.
+
+code now:
