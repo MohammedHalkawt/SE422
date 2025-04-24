@@ -1,6 +1,7 @@
+
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.*;
-
+//NOTE: benchmanrk code gotten from deepseek but it might be similar to his code
 public class IncrementBenchmark {
     private static final int THREAD_COUNT = 16;
     private static final int ITERATIONS = 1_000_000;
