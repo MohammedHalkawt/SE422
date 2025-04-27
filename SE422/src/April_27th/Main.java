@@ -73,7 +73,7 @@ public class Main{
 
     this.id = id; eould break the immutability.
 
-    HW: What about the case id = id;
+    HW: What about the case id = id; */
 
 When designing immutable its not just abou tyour classes but what you also have in them.
     It just means you cant modify anything in that region.
