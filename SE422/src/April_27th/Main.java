@@ -62,3 +62,19 @@ public class Main{
     }
 }
 //3 even if we have an object shared between threads, it cannot be changed thus making it thread-safe
+
+
+
+
+
+/* Atomic classes being lock free and thread safe is what separates it from other normal things. One other thing is immutable objects.
+    an object can be classified as immutable when we cannot change its properties.
+    It is only read only and only that. No edits can be changed.
+
+    this.id = id; eould break the immutability.
+
+    HW: What about the case id = id;
+
+When designing immutable its not just abou tyour classes but what you also have in them.
+    It just means you cant modify anything in that region.
+    
