@@ -1,0 +1,4 @@
+Agenda:
+    Recap immutables
+    How immutables interact with pass-by reference
+    Multi-thread environment
