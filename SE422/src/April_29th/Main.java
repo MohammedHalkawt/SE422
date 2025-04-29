@@ -63,8 +63,8 @@ public class Main{
         //7 as we can see, no matter what the thread is going to do, it wont propogate back to the main, so neither s nor the obj in Thread 2 will be changed when t1 runs and adds to the gpa, since a new object is always created when changes are made. so if a change happens in one side, the rest of the system will be decoupled, this happens because we pass the reference by copying and not by referencing. if we have a scenario where each thread does its own thing, immutables are very good for that since we know that changes wont propogate back.
 
         //8 now we will try to make changes propogate back to the original, for that we will make a mutable class and we will call it database, so if we want to pass pointers by reference, we need a class thats mutable and points at the object that we have
-        DB.ptr = s;
-        Thread t1 = new Thread1();
+        // DB.ptr = s;
+        // Thread t1 = new Thread1();
         Thread t2 = new Thread2();
 
         Student old3 = s;
@@ -74,7 +74,9 @@ public class Main{
 
 class DB{//9 this can sometimes be cached and will cause problems, so we will make it volatile
     // public volatile static Student ptr;
-    public static AtomicReference<Student> = new 
+
+    //10.2 we use this which makes ptr
+    public static AtomicReference<Student> ptr = new AtomicReference<>();
 }
 
 // class Thread1 extends Thread{
@@ -136,15 +138,20 @@ class Thread2 extends Thread{//10 a case where we see if idk wala
     }
 
     public void run(){
-        Student old;
-        old = obj;
-        obj = obj.setId(200);
+        // Student old;
+        // old = obj;
+        // obj = obj.setId(200);
 
         // if(DB.ptr == old){
         //     DB.ptr = obj;//10.1 this is like a safety measure, where we check if it is still looking at the previous space or not, this is to see if changes have already been made without you knowing or not. but this will not be thread safe since another thread can come in between and change things (where the obj is pointing at now), to make it thread safe, we will change the static in the DB class, we will change to atomicreference which implements CAS
         // }
 
-        compareAndSet(old, obj);
+
+
+        Student old = obj;
+        obj = obj.setId(200);
+
+        // 10.3 - Attempt to set only if no other thread has changed DB.ptr in the meantime
+        DB.ptr.compareAndSet(old, obj);     
     }
 }
-//11 code not completed...... maybe ai will finish it
