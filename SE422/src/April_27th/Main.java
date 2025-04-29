@@ -75,6 +75,6 @@ public class Main{
 
     HW: What about the case id = id; */
 
-When designing immutable its not just abou tyour classes but what you also have in them.
-    It just means you cant modify anything in that region.
+// When designing immutable its not just abou tyour classes but what you also have in them.
+//     It just means you cant modify anything in that region.
     
