@@ -1,0 +1,15 @@
+Software Models and Low-Level Optimizations
+Not included for midterm
+Agenda:
+    Software Models
+    Low-Level Optimizations
+    How these are related to memory ordering
+    How Causality and Happens-Before relationship plays a huge role
+
+Software Models: SE is all about creating software models. we want software models that can be explained to a machine and which that machine can execute it. so if we have a problem or some computation we want, we make a software model for it, and eventually that model will be executed on the hardware. SE422 wants to make executable software models that can utilize more than one core when its being executed.
+
+To create a model you need a high level programming language, lets assume we use C++, and when we compile the code we are going to create machine code, and now the machine code is the program in the hardware perspective. now this is the software model in the eyes of the hardware.
+in java we have the code, the code is compiled and byte code is generated, then it is given to the JVM and the JVM is going to generate the machine code.
+so as a programmer in both scenarios we think that the only difference is the first coding, but thats not the case and other optimizations can be made. for example in C++ the compiler can optimize stuff for us and also the hardware layer can optimize as well. in java as well, in java the JVM can optimize stuff as well and they do it to make the code a lil faster and the hardware layer as well. in the hardware layer the cpu can reorder the instructions just to make your application faster. the good thing is that the complexity wont propogate back to you and you dont need to worry about the other optimizations since the code is the only thing you can see and change.
+
+code
