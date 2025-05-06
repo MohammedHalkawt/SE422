@@ -13,3 +13,26 @@ in java we have the code, the code is compiled and byte code is generated, then 
 so as a programmer in both scenarios we think that the only difference is the first coding, but thats not the case and other optimizations can be made. for example in C++ the compiler can optimize stuff for us and also the hardware layer can optimize as well. in java as well, in java the JVM can optimize stuff as well and they do it to make the code a lil faster and the hardware layer as well. in the hardware layer the cpu can reorder the instructions just to make your application faster. the good thing is that the complexity wont propogate back to you and you dont need to worry about the other optimizations since the code is the only thing you can see and change.
 
 code
+
+
+Extra:
+Execution & memory order
+A software model is basically a thing that can explain a computation for you.
+A software model is a model that describes a solution to a problem which is the execution and you give it to a device so it does it for you, aka a computable model.
+We use software models in our own high coding language because it translates well to machine language. We'd rather have it translate rather than learning machine language ourselves.
+
+Code Order = Describes the order of the operation.. Another word is sequential order of operations = How they would be computed.
+
+The code order is basically explaining the sequence of your executions.
+The execution order is what is different. 
+Code Order is not equivalent or identical to Execution order, but they generate a machine code with an execution order that generally matches the sequential order of the operation.
+
+
+There are a lot of steps and optimizations happening berween the code order and execution order.
+
+the whole point of these optimizations is obviously making your code faster.
+The execution order is very dynamic. It changes all th etime.
+The code order is fixed. Execution order is not fixed.
+
+We are not changing the sequential order, however we are removing necessary blocks of code to make it run faster. JVM does this in Java.
+Take for example you have some blocks of code for unnecessary addition. It will remove it.
