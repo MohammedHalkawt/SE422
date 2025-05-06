@@ -37,3 +37,41 @@ public class Optimization {
     }
 }
 
+
+
+
+/*
+Extra:
+Public class Optimization{
+    static final int ITERATIONS = 100_000_000;
+    public static void main(String[] args) {
+        int x;
+        int y;
+
+        x = 0;
+        x = 10;
+
+        y = 0;
+        y = 20;
+
+        int result = x+y;
+
+        System.out.println(result);
+    }
+}
+
+What isnt acceptable as x = 0; and x = 10;. If you have the 10 before the 0 such as
+    x = 10;
+    x = 0;
+
+Software consistency is about the state of the software after the reordering.
+
+From JVM side, it would re-order things as long as it does not change the output of a single thread. But, they ignore multi-threaded things.
+    Some of those re-orderings will accept the application.
+    They will try and make it faster because of this.
+    The hardware reordering happens anyways. 
+
+    When we talk about consistency, we are talking about memory reordering.
+    So why explain software consistency just for memory. The main reason for this is because imagine you have two cores. One is executing on another and th eother on another, they are using one shared resource.
+    That shared resource is memory. So if one core changes the order of the operations and you have a certain assumption that the other is also doing this.
+    */
