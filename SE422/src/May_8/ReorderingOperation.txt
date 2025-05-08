@@ -1,0 +1,50 @@
+Agenda:
+Recap
+reordering operation
+Hardware layer
+memory consistency
+sequential consistency
+
+Theoretical mostly
+
+code order and program order is technically one thing, but what is exxecuted is called execution order, this is how the program is actually executed when the program is executed. this matters because even if we change the code during execusion, we only change the order and remove some lines and stuff, but know that code order and execution order are not the same.
+
+last time we talked about how java removes some things, but reordering the operations is also very important
+
+A            D
+B can become B
+C            C
+D            A
+
+Hardware layer does only reordering pretty well, things that are more abstract and related to methods are not done by the hardware layer.
+one way to see if the initial and final reordered code have the same output is to see the data flow, since there could be dependency and independency between the operations, the data flow is what determines this, basically we mean if they are playing with the same memory space then they have data flow between them, so if A writes to memory space 1 and B reads from memory space 1, then they have data flow.
+
+at the same time if we flip things around, maybe the code will get faster, but something else can also change, which is the happens before relationship, since if its A then B and we change it to B then A, then we have changed things
+
+if we have a bunch of operations in a single thread, they will change things left and right but will make sure that causality is not broken.
+
+now we have code for a reorder demo, one method changes a to 1 and also makes the flag true, method 2 checks if flag is true or na, and if true sees if a is still 1, if its not then reordering has happened, we have 2 threads and one is executing method 1 and the other for method 2. 
+
+logically the print about reordering observed in method 2 should not occur since method 2 says flag should be true and a should not be 1, which shouldnt occur if reordering hasnt happened, even if a thread starts before the other. in main we have a loop that repeats calling the methods by thread 1 and 2.
+
+method 1 says a to 1 and flag to true, in single thread no problem but in multiple threads it can be reordered, since the hardware layer doesnt know it will affect the output, the hardware flips a to 1 and flag to true to flag to true and a to 1, which changes things and makes the print true sometimes, this is hardware's fault.
+
+when reordering causes conflicts its like this(in t1, a before b, and b before x, this a before x, and in t2, x before y, and y before a, thus x before a, this is contradicting and wrong, btw a and b from t1 and x and y from t2)
+
+small recap:
+reordering at the hardware layer doesnt mean we change teh code, we just reorder and delay some things
+when we are reordering, we are playing with causality, in single thread it doesnt cause any problems, but in multi-thread, if we change causality and it travels to another thread, maybe globally it will cause problems.
+
+only one way to fix this, which is when we are doing the reordering, we need to make sure the global state is correct and consistent, so we shouldnt look at things from a single thread's perspective when we have more than one thread.
+
+one way to fix the ab and xy is to make it ab then xy, which fixes it globally but drops performance since we say t1 should finish then t2, which is slow.
+the good solution is sequential consistency, which says "when a thread wants to use memory, only one of them should access it at the same time". the only side effect is that the order is not fixed, so first time it could be ab xy, second it could be ax by, third could be by ax, these are all fine from a single thread's perspective and also globally. the only problem is that it is also hurting the performance.
+so this proposal which was made years ago was never fully implemented, but now there is a similar thing for write only
+
+something to remember is that if we increase performance then consistency drops, and if we increase consistency then performance drops.
+
+the solution is to tell the cpu to avoid reordering in certain parts of the code, and if we dont tell it then it will do it by itself which is not good sometimes.
+
+one thing we have seen like this is when we have lock and unlock, which it tells the cpu to always run the lock before the unlock and to not change that order.
+
+global order: the order of the operation at a multi-thread point of view so if t1 is a then b and t2 is x then y, in global order we have all 4 like saying a then b then x then y.
