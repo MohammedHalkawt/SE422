@@ -1,5 +1,6 @@
 Agenda:
 Intrinsic Locks Recap
 Reentrant Behaviour
-Explicit LocksReentrant Locks (intrinsic vs extrinsic)
+Explicit Locks
+Reentrant Locks (intrinsic vs extrinsic)
 try-finally block requirements

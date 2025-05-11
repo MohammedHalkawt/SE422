@@ -11,8 +11,8 @@ public class CountDownLatchExample {
 
         new Thread(new Worker(latch, "Rocket Systems")).start();
         new Thread(new Worker(latch, "Fuel Engines")).start();
-        new Thread(new Worker(latch, "Weather Systems")).start();
         new Thread(new Launcher(latch)).start();// 6 this is called after everything else is finished because the counter would be zero then
+        new Thread(new Worker(latch, "Weather Systems")).start();
 
     }   
 }

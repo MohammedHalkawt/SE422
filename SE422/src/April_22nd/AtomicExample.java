@@ -40,7 +40,7 @@ public class AtomicExample {
 
     }
 
-    // public final int incrementAndGet(){//7 the incrementAndGet is atomic because it still uses the compare and set method in a loop to check if the current == expected, this is pseudocode. and most of the methods in the atomic class do this and use the compareAndSet but its not nescessary that all the atomic data type shave the same methods
+    // public final int incrementAndGet(){//7 the incrementAndGet is atomic because it still uses the compare and set method in a loop to check if the current == expected, this is pseudocode. and most of the methods in the atomic class do this and use the compareAndSet but its not nescessary that all the atomic data type share the same methods
     //  int prev, next;
     //  do{
     //     prev = get();
@@ -77,7 +77,7 @@ public class AtomicExample {
 //             do {
 //                 prev = get(); // read current value
 //                 next = prev + 2; // compute new value
-//             } while (!ompareAndSet( prev, next)); // retry until successful
+//             } while (!compareAndSet( prev, next)); // retry until successful
 
 //             return next;
 

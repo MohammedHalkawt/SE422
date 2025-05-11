@@ -7,4 +7,4 @@ Agenda:
 Last lectures were about atomic classes, a key property is that they are lock free, yet thread-safe, this is mainly because of the compareAndExchange method. Immutable objects provie another way to achieve lock-free yet thread-safe executions. its a design pattern. 
 
 Immutable Object: An object in java is immutable when we cannot change its properties
-Code: MainEarly
+Code: Main

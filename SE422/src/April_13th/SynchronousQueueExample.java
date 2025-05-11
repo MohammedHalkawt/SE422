@@ -6,7 +6,7 @@ public class SynchronousQueueExample {
     public static void main(String[] args) throws InterruptedException {
         SynchronousQueue <String> queue = new SynchronousQueue<>();//1 if we want to use student we would say <Student>.
 
-        //queue.put("Value");//2 if we have a queue and a thread, and the thread tries to add data to the queue, and there is no take method called, then the thread who did it will be put to sleep, this means that the only way to add and take data from the queue is fro 2 threads to work at the same time, so one should put and the other should take, if one of them are slow, then the other one is put to sleep. so if put is slow, then take is put to sleep until put has sent, and if put is slow then take is asleep until put sends its things.
+        //queue.put("Value");//2 if we have a queue and a thread, and the thread tries to add data to the queue, and there is no take method called, then the thread who did it will be put to sleep, this means that the only way to add and take data from the queue is for 2 threads to work at the same time, so one should put and the other should take, if one of them are slow, then the other one is put to sleep. so if put is slow, then take is put to sleep until put has sent, and if put is slow then take is asleep until put sends its things.
 
         //3 difference between this and wait/notify: this provides a channel to exchange data between two threads, so not only you have a synchronizer, you can also transfer data from one thread to another.
         //queue.take();

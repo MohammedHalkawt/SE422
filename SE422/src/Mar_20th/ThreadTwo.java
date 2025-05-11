@@ -14,7 +14,7 @@ public class ThreadTwo extends Thread {
         //     //6 if you want to study this in a topic you can look into DeadLocks and DAGs(not really needed)
         //     //7 we now need to find ways to avoid deadlocks, since if we get into one, there is nothing we can do and we need to restart the application
 
-        //     //8 Two rules: if we have 1 lock, starvation i will not occur, and if we have multiple locks but they are not really shared between multiple threads, then starvation will not occur
+        //     //8 Two rules: if we have 1 lock, starvation will not occur, and if we have multiple locks but they are not really shared between multiple threads, then starvation will not occur
             
         //     //9 now we will change the .lock() to .tryLock() and have an if statement where we try to see whether we can get the lock or not
 
