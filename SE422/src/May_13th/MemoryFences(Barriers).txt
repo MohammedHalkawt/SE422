@@ -1,0 +1,87 @@
+Agenda:
+    Recap
+    Terminology (Store/load)
+    Types of memory fences
+    Java memory model (jmm)
+    volatile
+
+Any code thats not java is not included
+
+Code order and execution order are different and execution order is what happens, its optimized and it can happen at runtime or compile time.
+these changes can also happen at the hardware layer, where the cpu delays certain instructions, which affects the happens before relationship sometimes and we are dealing with the memory.
+
+CPU will give you a memory model that they are following, a memory model will tell you when they will reorder, what type of reordering they will do, and what operations will they ignore and not reorder. so its not that they will always reorder, but they give you the cases where they might.
+
+javas memory model will be in jmm and its a high level programming language
+
+the takeaway is that as a high level programming language, you need to be aware of the model that the language uses, but in the cpus side you only need to know the basics, so here we see that 2 models exist one for the HL language and one for cpu, check this info later i think its false
+
+Terminologies:
+CPU             Main memory
+    ----->-----(we call this write when we send data to main memory, but if we are close to the cpu we call it store)    
+    -----<-----(we call this read  normally, but when we are close to the cpu model whether its the cpu or jmm we use load)
+
+having stuff in the registry is not considered as storing since its a temporary place for the cpu itself, store is from l1 until the end which is dram, and when we are loading the data same it starts after dram and until l1 l1 included.
+
+when you have a write you put in l1, if l1 full it goes to l2 so l1 becomes free, then if l2 full then it goes to l3, then after that it will be sent to main memory, the thing is we dont know when, but we know eventually it will land in main memory.
+
+when we talk about reordering memory operations, we talk about how our store and load are reordered, since these affect the memory.
+in order to make it not reorder those 2, we will put barriers which will specify what has to be reorderd and what shouldnt
+
+we have 4 types of barriers:
+store store fence: any write operation before teh fence should not be reordered such that it will be after the fence after the store operation after the barrier. basically any write before the barrier should not be reordered such that we put it after the write after the fence.
+
+w1 (we work on this as example)
+w2
+_____ this the barrier, we say the store operations shouldnt happen after the barrier
+
+
+so this is allowed
+
+w2
+-------
+w1
+
+
+but not this
+
+----
+w2
+w1
+
+Load Load:
+the read before the barrier should not be reordered so that it is placed after the barrier after the existing read operation
+
+Load Store:
+the read operation before the barrier should not be reordered such that it is placed after the barrier after the write operation
+
+r1(we work on this as example)
+w1
+------
+
+w1
+---
+r1 okay
+
+---
+w1
+r1 bad i think
+
+
+Store Load:
+the write operation before the barrier should not be reordered such that it is placed after the barrier after the read operation
+
+if we have all 4 then we have a full fence, since we do not allow any reordering.
+
+the important one is store - load, since if the store goes after the load it will ruin things, intel and amd doesnt allow the other three types and only allows this, but for example ARM they allow for all reordering operations.
+
+in x86 architecture it already guarantees the other three, so even if you ask for it it will show nothing being changed, but in arm it has its own instruction types and stuff to help you control the reordering operations.
+
+ldar is for loading and stlr is for storing in ARM
+in x86 it shows as mov (registry), memory or mov memory, registry, this specifies the load and store here, if its from memory to registry its load and if the other way around its store.
+
+how volatile interacts with fences:
+lets say we have 2 threads that run in parallel, one stores a volatile var called i, the other reads i from the volatile. before the write of volatile in t1 these fences will be added, load store and store store, it says all the writes in the operation that are before the write of volatile shoud stay in their place, and all reads before the volatile should stay before teh volatile. so no reordering should pass the write of volatile, it becomes the constraint.
+
+in t2 which the thread that reads the volatile, 2 fences will be added after the read operation. load load and load store. it means all the memory operations after reading from volatile should remain after the read of volatile, so loads after volatile should remian after it, basically we mean the volatile should not move around. same for the load store, it shouldnt go after the stores which are already after the read of volatile.
+
