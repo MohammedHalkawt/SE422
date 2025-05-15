@@ -1,0 +1,87 @@
+Agenda:
+    Recap
+    How volatile is treated
+    Synchronous consistency / visibility and how its related to memory visibility
+    limitations
+    m fence vs lock
+    cost of memory fences overall
+
+Key topic is Synchronous consistency
+
+Modern hardwares dont have a memory model thats solid enough to ensure global consistency
+
+they have load and store at the hardware level
+
+Memory Model: in a High level, it tells you what is allowed and what is not allowed when it comes to reordering, its the constraints of reordering. we theoretically model the memory to tell it whats allowed and whats not allwoed. in hardware level it also exists and in java we use jmm, it is applied to the jvm, the compiler, and the cpu, so that in certain locations they ensure reordering doesnt happen based on the constraints. also keep in mind that its not the same in all languages, in java volatile is treated very differently from C and C++.
+
+In java jmm we have a few rules, some come naturally when we use certain tools and are applied over the compiler, jvm and cpu. one example is constructors, which are applied right away. volatile is another example, so if a variable is marked volatile it is treated very differently by the compiler, jvm and cpu.
+
+Volatile and how they are treated in java
+the key point of volatile is visibility. in volatile in total we have 5 fences.
+
+things he says today only apply for volatile and not normal variables
+x: volatile
+
+t1   
+_______________ 
+other operations                                                                                                                                                 
+[Load store] always first word is before the fence and second is after it, so load store is load before fence and store after it not allowed
+[store store] write write is not allowed accross the fence     
+Store x         the two above mean whatever happens before store x should remain above it, its okay if they themselves are reordered above it but not bellow it, these two being combined are called a release fence when they occur before a write. we make sure the memory is up to date before moving on
+
+1 everything after the store x is alowed to move up      
+
+1.3[store load] this says do not allow loads after this store to come above it
+
+t2
+_______________
+
+
+1.4
+[Store load], this connection with the one above in t1 makes a Synchronous memory consistency across the threads, it says make sure the write is done, then allow reads. it says make sure any store that happens before this load bellow it stays above it. in current java implementation this one is not used since the one in t1 after the store x affects all the cores.
+
+load x
+we now will have 2 fences that are designed to keep everything after the load after the load
+[load load] this means every load after this load should remain bellow it, so we make sure they dont come before it
+[load store] this means every store that happens after this load should remain after it and not reordered to be above it
+informally these two together mean make sure nothing bellow this load should come above it, its referred to as acquire fence, which is keep everything after the read
+
+rest of operations
+
+1.2 everything before the load x is allowed to move up too, this and the point on t1 make it so that there is a chance load x happens before store x, there is another fence that doesnt allow this, its [store load]
+
+
+
+2. memory  fences when they are applied to one core, they are applied on all cores, thats why theres no problem in removing one side. also the main reason why volatile is visibile on all threads is because of the [store load] fence, it shows the latest one.
+
+we now have 5 fences, lets see how expensive they are
+in x86 the other ones are not expensive because they are guaranteed, but the only one that we actually need a fence for it is [store load], thats the expensive one in x86.
+
+in x86 we have to ways to do store load, either mfence or lock.
+mfence and lock add are the two ways, but it has been found out that using the lock add is faster so mostly that one is being used.
+
+
+scenario:
+
+volatile int x
+volatile int y
+
+t1
+_______________
+x = 20, this one needs 3 fences, LS, and SS before it, and SL after it
+y = 10, this one needs LS and SS before it and SL after it. we dont delete the repeating ones since they are not across two threads and are together
+
+we have 2 release fences
+
+even if we say x86 which only actually uses one, we do still mention the other ones. but in x86 the only cost we would have is the 2 SL, and we nee dto pay it twice
+if we delete the first SL, then the second would still initiate the release and it will also affect the first, so its okay to remove the keyword volatile from int x. so it becomes:
+int x
+volatile int y
+x and y will both have a visibility of a volatile variable. since x will get y's effects. so x is as visibile as y.
+the important thing is if we define int x then volatile int y, make sure to write x first then y, otherwise the effect wont take place.
+
+the synchronization we talked about are not the threads here, but it will be through memeory.
+if we have a volatile write in t1 and a volatile read in t2, memory consistency just means if there is a write, the next read will see it. but there is no guarantee if the read happens after the write, so if it happens before the write, we cant do anything.
+so in locks we control threads and sleep and wake them up, in Synchronous consistency, we just make sure that if a write occurs, then the next read will see it. not the sleep and waiting state of the threads. thats why we still need locks and wait and notify with volatile.
+
+takeaway: Synchronous consistency is about the visibility of memory and nothing else like locks and stuff.
