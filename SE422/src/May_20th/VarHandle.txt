@@ -1,0 +1,1 @@
+its changing a lot so best way to learn about it is to look at the documentation of java 21 and above, since older ones are different
