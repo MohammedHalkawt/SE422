@@ -1,0 +1,8 @@
+
+The main point of SE422 is how to utilize modern CPUs
+
+H.W can we have a lock free solution thats based on locks? like you are using locks but are not affecting anyone else and if the OS removes that thread and it has the lock at that moment, it doesnt affect anything else. trylock would be one way
+
+Wait-Free algorithms: there is always progress in threads, not very known but still important
+
+Capstone latency insights: be very careful about the data thats going across threads when you have multithreading, using lock-free solutions like varhandle, fences and else.
